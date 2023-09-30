@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
 require('dotenv').config();
 
 
@@ -43,6 +45,8 @@ app.get('/', async (req, res) => {
 app.use('/api', productRoutes);
 app.use('/api', diseaseRoutes);
 app.use('/api', communityRoutes);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
